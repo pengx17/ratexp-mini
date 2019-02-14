@@ -1,0 +1,17 @@
+{
+  "miniprogramRoot": "dist/",
+  "projectname": "ratexp-mini",
+  "description": "Rate XP, for GK only!",
+  "appid": "wxe38664f8c11d9d89",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false,
+    "newFeature": true,
+    "nodeModules": false,
+    "autoAudits": false
+  },
+  "compileType": "miniprogram",
+  "condition": {}
+}
