@@ -1,0 +1,30 @@
+.container {
+  margin-top: 200rpx;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  padding-bottom: 40rpx;
+}
+
+.nickName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+.nickNameStar {
+  font-size: 0.8rem;
+}
+
+.welcomeText {
+  margin-top: 20rpx;
+}

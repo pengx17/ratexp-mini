@@ -42,6 +42,7 @@
   "devDependencies": {
     "@tarojs/plugin-babel": "1.2.12",
     "@tarojs/plugin-csso": "1.2.12",
+    "@tarojs/plugin-sass": "^1.2.13",
     "@tarojs/plugin-uglifyjs": "1.2.12",
     "@tarojs/webpack-runner": "1.2.12",
     "@types/react": "^16.4.8",

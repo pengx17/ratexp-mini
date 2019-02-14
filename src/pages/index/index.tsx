@@ -1,71 +1,48 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Button, Text } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 
-import { add, minus, asyncAdd } from '../../actions/counter';
+import { State } from '../../reducers/auth';
+import { initUserInfo } from '../../actions/auth';
+import { kuo, allowedUsers } from '../../constants/auth';
 
-import './index.css';
+import styles from './index.module.css';
+import { AtButton, AtAvatar, AtMessage } from 'taro-ui';
 
-// #region 书写注意
-//
-// 目前 typescript 版本还无法在装饰器模式下将 Props 注入到 Taro.Component 中的 props 属性
-// 需要显示声明 connect 的参数类型并通过 interface 的方式指定 Taro.Component 子类的 props
-// 这样才能完成类型检查和 IDE 的自动提示
-// 使用函数模式则无此限制
-// ref: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
-//
-// #endregion
-
-type PageStateProps = {
-  counter: {
-    num: number;
-  };
-};
+type PageStateProps = State;
 
 type PageDispatchProps = {
-  add: () => void;
-  dec: () => void;
-  asyncAdd: () => any;
+  initUserInfo: (userInfo: any) => any;
 };
 
 type PageOwnProps = {};
 
-type PageState = {};
+type PageState = {
+  initialized: boolean;
+};
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
 
-interface Index {
-  props: IProps;
-}
-
 @connect(
-  ({ counter }) => ({
-    counter,
-  }),
+  ({ auth }) => auth,
   dispatch => ({
-    add() {
-      dispatch(add());
-    },
-    dec() {
-      dispatch(minus());
-    },
-    asyncAdd() {
-      dispatch(asyncAdd());
+    initUserInfo(userInfo: any) {
+      dispatch(initUserInfo(userInfo));
     },
   })
 )
-class Index extends Component {
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
+class Index extends Component<IProps, PageState> {
+  state = { initialized: false };
+
   config: Config = {
-    navigationBarTitleText: '首页',
+    navigationBarTitleText: '廓廓老公真争气',
   };
+
+  componentDidMount() {
+    // 登录，确认用户没毛病。
+    this.refreshAuthSetting();
+  }
 
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps);
@@ -73,32 +50,79 @@ class Index extends Component {
 
   render() {
     return (
-      <View className="index">
-        <Button className="add_btn" onClick={this.props.add}>
-          +
-        </Button>
-        <Button className="dec_btn" onClick={this.props.dec}>
-          -
-        </Button>
-        <Button className="dec_btn" onClick={this.props.asyncAdd}>
-          async
-        </Button>
-        <View>
-          <Text>{this.props.counter.num}</Text>
-        </View>
-        <View>
-          <Text>Hello, World</Text>
-        </View>
+      <View className={styles.container}>
+        {this.state.initialized && (
+          <View>
+            <AtMessage />
+            {this.props.userInfo && (
+              <View className={styles.content}>
+                <AtAvatar
+                  circle
+                  size="large"
+                  image={this.props.userInfo.avatarUrl}
+                />
+                <Text className={styles.nickName}>
+                  {this.props.userInfo.nickName}
+                </Text>
+              </View>
+            )}
+            {!this.props.userInfo && (
+              <AtButton
+                type="primary"
+                openType="getUserInfo"
+                onGetUserInfo={params =>
+                  this.onGetUserInfo(params.detail.userInfo)
+                }
+              >
+                Make XP great again
+              </AtButton>
+            )}
+          </View>
+        )}
       </View>
     );
   }
-}
 
-// #region 导出注意
-//
-// 经过上面的声明后需要将导出的 Taro.Component 子类修改为子类本身的 props 属性
-// 这样在使用这个子类时 Ts 才不会提示缺少 JSX 类型参数错误
-//
-// #endregion
+  async refreshAuthSetting() {
+    Taro.showLoading({ title: '加载中', mask: true });
+    try {
+      const [login, session] = [await Taro.login(), await Taro.checkSession()];
+      console.log(login, session);
+      const { authSetting } = await Taro.getSetting();
+
+      if (authSetting && authSetting['scope.userInfo']) {
+        const { userInfo } = await Taro.getUserInfo();
+        this.onGetUserInfo(userInfo);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    this.setState({ initialized: true });
+    Taro.hideLoading();
+  }
+
+  checkUserValid() {
+    return (
+      this.props.userInfo && allowedUsers.includes(this.props.userInfo.nickName)
+    );
+  }
+
+  onGetUserInfo = (userInfo: any) => {
+    this.props.initUserInfo(userInfo);
+
+    if (kuo.includes(userInfo.nickName)) {
+      Taro.atMessage({
+        message: '欢迎老婆大人！',
+        type: 'success',
+      });
+    } else if (userInfo.nickName === 'xp') {
+      Taro.atMessage({
+        message: '💩💩💩',
+        type: 'warning',
+      });
+    }
+  };
+}
 
 export default Index as ComponentClass<PageOwnProps, PageState>;
