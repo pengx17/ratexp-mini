@@ -28,11 +28,15 @@ class App extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    pages: ['pages/index/index'],
+    pages: [
+      'pages/index/index',
+      'pages/presenter/presenter',
+      'pages/rate/rate',
+    ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarBackgroundColor: '#eee',
+      navigationBarTitleText: '廓廓老公真争气',
       navigationBarTextStyle: 'black',
     },
   };

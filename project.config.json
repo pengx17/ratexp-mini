@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "ratexp-mini",
+  "projectname": "ratexp",
   "description": "Rate XP, for GK only!",
   "appid": "wxe38664f8c11d9d89",
   "setting": {
@@ -13,5 +13,6 @@
     "autoAudits": false
   },
   "compileType": "miniprogram",
+  "libVersion": "2.6.0",
   "condition": {}
 }

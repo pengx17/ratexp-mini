@@ -16,7 +16,8 @@
     "dev:tt": "npm run build:tt -- --watch",
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
-    "prettier": "prettier --write \"src/**/*.*\""
+    "prettier": "prettier --write \"src/**/*.*\"",
+    "taro": "npx taro"
   },
   "author": "",
   "license": "MIT",
@@ -40,6 +41,7 @@
     "taro-ui": "^2.0.0"
   },
   "devDependencies": {
+    "@tarojs/cli": "^1.2.13",
     "@tarojs/plugin-babel": "1.2.12",
     "@tarojs/plugin-csso": "1.2.12",
     "@tarojs/plugin-sass": "^1.2.13",

@@ -1,14 +1,12 @@
-import { ComponentClass } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-
-import { State } from '../../reducers/auth';
+import Taro, { Component } from '@tarojs/taro';
+import { ComponentClass } from 'react';
+import { AtButton, AtMessage } from 'taro-ui';
 import { initUserInfo } from '../../actions/auth';
-import { kuo, allowedUsers } from '../../constants/auth';
-
+import { allowedUsers, kuo } from '../../constants/auth';
+import { State } from '../../reducers/auth';
 import styles from './index.module.css';
-import { AtButton, AtAvatar, AtMessage } from 'taro-ui';
 
 type PageStateProps = State;
 
@@ -33,11 +31,11 @@ type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
   })
 )
 class Index extends Component<IProps, PageState> {
-  state = { initialized: false };
-
-  config: Config = {
-    navigationBarTitleText: '廓廓老公真争气',
+  config: Taro.Config = {
+    disableScroll: true,
   };
+
+  state = { initialized: false };
 
   componentDidMount() {
     // 登录，确认用户没毛病。
@@ -50,33 +48,24 @@ class Index extends Component<IProps, PageState> {
 
   render() {
     return (
-      <View className={styles.container}>
+      <View>
+        <AtMessage />
         {this.state.initialized && (
-          <View>
-            <AtMessage />
-            {this.props.userInfo && (
-              <View className={styles.content}>
-                <AtAvatar
+          <View className={styles.container}>
+            <View>
+              {!this.props.userInfo && (
+                <AtButton
+                  type="primary"
                   circle
-                  size="large"
-                  image={this.props.userInfo.avatarUrl}
-                />
-                <Text className={styles.nickName}>
-                  {this.props.userInfo.nickName}
-                </Text>
-              </View>
-            )}
-            {!this.props.userInfo && (
-              <AtButton
-                type="primary"
-                openType="getUserInfo"
-                onGetUserInfo={params =>
-                  this.onGetUserInfo(params.detail.userInfo)
-                }
-              >
-                Make XP great again
-              </AtButton>
-            )}
+                  className={styles.button}
+                  openType="getUserInfo"
+                  onGetUserInfo={this.onGetUserInfo}
+                >
+                  使用微信登录
+                </AtButton>
+              )}
+            </View>
+            )
           </View>
         )}
       </View>
@@ -84,7 +73,6 @@ class Index extends Component<IProps, PageState> {
   }
 
   async refreshAuthSetting() {
-    Taro.showLoading({ title: '加载中', mask: true });
     try {
       const [login, session] = [await Taro.login(), await Taro.checkSession()];
       console.log(login, session);
@@ -92,14 +80,13 @@ class Index extends Component<IProps, PageState> {
 
       if (authSetting && authSetting['scope.userInfo']) {
         const { userInfo } = await Taro.getUserInfo();
-        this.onGetUserInfo(userInfo);
+        this.setUserInfo(userInfo);
       }
     } catch (err) {
       console.error(err);
     }
 
     this.setState({ initialized: true });
-    Taro.hideLoading();
   }
 
   checkUserValid() {
@@ -108,7 +95,17 @@ class Index extends Component<IProps, PageState> {
     );
   }
 
-  onGetUserInfo = (userInfo: any) => {
+  setUserInfo = (
+    userInfo: Taro.getUserInfo.PromisedPropUserInfo | undefined
+  ) => {
+    if (!userInfo) {
+      Taro.atMessage({
+        message: '必须授权后才可使用',
+        type: 'error',
+      });
+      return;
+    }
+
     this.props.initUserInfo(userInfo);
 
     if (kuo.includes(userInfo.nickName)) {
@@ -121,7 +118,22 @@ class Index extends Component<IProps, PageState> {
         message: '💩💩💩',
         type: 'warning',
       });
+    } else {
+      Taro.atMessage({
+        message: '你是谁，怎么进来的！',
+        type: 'error',
+      });
+      return;
     }
+
+    setTimeout(() => {
+      Taro.redirectTo({ url: '/pages/presenter/presenter' });
+    }, 1000);
+  };
+
+  onGetUserInfo = (event: any) => {
+    console.log(event);
+    this.setUserInfo(event.detail.userInfo);
   };
 }
 

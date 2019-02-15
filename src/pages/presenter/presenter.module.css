@@ -1,0 +1,29 @@
+.presenterWrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: start;
+  height: 100vh;
+}
+
+.viewWrapper {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.viewContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.navTabWrapper {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  padding-bottom: 20px;
+}
