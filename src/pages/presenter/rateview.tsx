@@ -5,6 +5,10 @@ import { AtAvatar, AtCard } from 'taro-ui';
 class RateView extends Component<{
   userInfo: Taro.getUserInfo.PromisedPropUserInfo;
 }> {
+  static defaultProps = {
+    userInfo: {},
+  };
+
   config: Taro.Config = {};
 
   render() {

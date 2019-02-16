@@ -4,7 +4,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { ComponentClass } from 'react';
 import { AtButton, AtMessage } from 'taro-ui';
 import { initUserInfo } from '../../actions/auth';
-import { allowedUsers, kuo } from '../../constants/auth';
+import { allowedUsers } from '../../constants/auth';
 import { State } from '../../reducers/auth';
 import styles from './index.module.css';
 
@@ -55,13 +55,16 @@ class Index extends Component<IProps, PageState> {
             <View>
               {!this.props.userInfo && (
                 <AtButton
-                  type="primary"
+                  type="secondary"
                   circle
                   className={styles.button}
                   openType="getUserInfo"
                   onGetUserInfo={this.onGetUserInfo}
                 >
-                  使用微信登录
+                  <View style={{ display: 'flex', alignItems: 'center' }}>
+                    <View style={{ marginRight: '4px' }}>登录</View>
+                    <View className="icons8-wechat" />
+                  </View>
                 </AtButton>
               )}
             </View>
@@ -81,6 +84,7 @@ class Index extends Component<IProps, PageState> {
       if (authSetting && authSetting['scope.userInfo']) {
         const { userInfo } = await Taro.getUserInfo();
         this.setUserInfo(userInfo);
+        return;
       }
     } catch (err) {
       console.error(err);
@@ -108,21 +112,13 @@ class Index extends Component<IProps, PageState> {
 
     this.props.initUserInfo(userInfo);
 
-    if (kuo.includes(userInfo.nickName)) {
-      Taro.atMessage({
-        message: '欢迎老婆大人！',
-        type: 'success',
-      });
-    } else if (userInfo.nickName === 'xp') {
-      Taro.atMessage({
-        message: '💩💩💩',
-        type: 'warning',
-      });
-    } else {
+    if (!allowedUsers.includes(userInfo.nickName)) {
       Taro.atMessage({
         message: '你是谁，怎么进来的！',
         type: 'error',
       });
+
+      // 目前只给xp和gk用
       return;
     }
 

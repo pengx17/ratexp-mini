@@ -1,0 +1,22 @@
+.controlButton {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  margin-right: 12px;
+  font-size: 1.5em;
+  opacity: 0.4;
+
+  width: 2em;
+  height: 2em;
+
+  transition: all 0.2s;
+}
+
+.controlButtonSelected {
+  border-color: #aaa;
+  opacity: 1;
+  background-color: #eee;
+}
