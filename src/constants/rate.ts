@@ -1,10 +1,10 @@
-export interface Dimention {
+export interface Dimension {
   id: string;
   title: string;
   description: string;
 }
 
-export const dimensions: Dimention[] = [
+export const dimensions: Dimension[] = [
   {
     id: 'cautiousness',
     title: '谨慎',
@@ -32,22 +32,38 @@ export const dimensions: Dimention[] = [
   },
 ];
 
-export interface Rating {
-  score: number;
+export const dimensionMap: { [id: string]: Dimension } = dimensions.reduce(
+  (accum, dim) => ({ ...accum, [dim.id]: dim }),
+  {}
+);
+
+export interface Score {
+  value: number;
   label: string;
 }
 
-export const ratings: Rating[] = [
+export const scores: Score[] = [
   {
-    score: 2,
+    value: 2,
     label: '❤️',
   },
   {
-    score: 1,
+    value: 1,
     label: '😐',
   },
   {
-    score: 0,
+    value: 0,
     label: '💩',
   },
 ];
+
+export const scoresMap: { [id: string]: Score } = scores.reduce(
+  (accum, val) => ({ ...accum, [val.value]: val.label }),
+  {}
+);
+
+export interface RatingSet {
+  ratings: { [key: string]: number };
+  comments: string;
+  timestamp: string; // iso date
+}

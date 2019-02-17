@@ -1,6 +1,7 @@
 import { View } from '@tarojs/components';
 import Taro, { Component } from '@tarojs/taro';
 import { AtAvatar, AtCard } from 'taro-ui';
+import { getRatings } from '../../cloud';
 
 class RateView extends Component<{
   userInfo: Taro.getUserInfo.PromisedPropUserInfo;
@@ -10,6 +11,10 @@ class RateView extends Component<{
   };
 
   config: Taro.Config = {};
+
+  async componentDidMount() {
+    console.log(await getRatings());
+  }
 
   render() {
     return (
@@ -30,6 +35,7 @@ class RateView extends Component<{
             <AtAvatar size="large" image={this.props.userInfo.avatarUrl} />
           </View>
         </AtCard>
+        在此显示最近几个月平均值
       </View>
     );
   }

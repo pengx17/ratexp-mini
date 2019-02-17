@@ -1,11 +1,11 @@
 import { View } from '@tarojs/components';
 import Taro, { Component } from '@tarojs/taro';
 import { AtCard } from 'taro-ui';
-import { Dimention, ratings } from '../../constants/rate';
+import { Dimension, scores } from '../../constants/rate';
 import styles from './ratecontrol.module.css';
 
 class RateControl extends Component<{
-  dimention: Dimention;
+  dimention: Dimension;
   value?: number;
   onChange?: (value: number) => void;
 }> {
@@ -20,29 +20,32 @@ class RateControl extends Component<{
       styles.controlButton +
       (selected ? ` ${styles.controlButtonSelected}` : '');
     return (
-      <AtCard
-        title={
-          this.props.dimention.title + (this.props.value !== null ? ' ✅' : '')
-        }
-        note={this.props.dimention.description}
-      >
-        <View style={{ display: 'flex', justifyContent: 'center' }}>
-          {ratings.map(rating => {
-            const selected = this.props.value === rating.score;
-            return (
-              <View
-                onClick={() =>
-                  this.props.onChange && this.props.onChange(rating.score)
-                }
-                className={iconClassName(selected)}
-                key={rating.score}
-              >
-                {rating.label}
-              </View>
-            );
-          })}
-        </View>
-      </AtCard>
+      <View>
+        <AtCard
+          title={
+            this.props.dimention.title +
+            (this.props.value !== null ? ' ✅' : '')
+          }
+          note={this.props.dimention.description}
+        >
+          <View style={{ display: 'flex', justifyContent: 'center' }}>
+            {scores.map(rating => {
+              const selected = this.props.value === rating.value;
+              return (
+                <View
+                  onClick={() =>
+                    this.props.onChange && this.props.onChange(rating.value)
+                  }
+                  className={iconClassName(selected)}
+                  key={rating.value}
+                >
+                  {rating.label}
+                </View>
+              );
+            })}
+          </View>
+        </AtCard>
+      </View>
     );
   }
 }
