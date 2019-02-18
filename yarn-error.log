@@ -1,30 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\pengx\scoop\apps\yarn\current\Yarn\bin\yarn.js add dist/constants/rate --silent --no-progress
+  /Users/pengxiao/.nvm/versions/node/v8.15.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add src/components/ratingsetcard --silent --no-progress
 
 PATH: 
-  C:\Users\pengx\AppData\Local\Temp\yarn--1550386369077-0.8708704532822118;C:\Users\pengx\branches\ratexp-mini\node_modules\.bin;C:\Users\pengx\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Users\pengx\branches\ratexp-mini\node_modules\.bin;C:\Users\pengx\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\pengx\AppData\Local\Temp\yarn--1550386368794-0.8942511359621219;C:\Users\pengx\branches\ratexp-mini\node_modules\.bin;C:\Users\pengx\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Users\pengx\branches\ratexp-mini\node_modules\.bin;C:\Users\pengx\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Users\pengx\scoop\apps\yarn\current\Yarn\bin;C:\Users\pengx\scoop\apps\yarn\current\bin;C:\Users\pengx\scoop\shims;C:\Users\pengx\AppData\Local\Microsoft\WindowsApps;C:\Users\pengx\AppData\Local\Yarn\bin;C:\Users\pengx\AppData\Local\hyper\app-2.0.0\resources\bin;C:\Users\pengx\AppData\Roaming\npm;C:\Users\pengx\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Kubernetes\Minikube;C:\Program Files\nodejs\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\minikube;;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Go\bin;C:\Users\pengx\scoop\apps\yarn\current\Yarn\bin;C:\Users\pengx\scoop\apps\yarn\current\bin;C:\Users\pengx\.windows-build-tools\python27\;C:\Users\pengx\AppData\Roaming\npm\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\pengx\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\pengx\AppData\Roaming\npm\node_modules\.bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Go\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Users\pengx\scoop\shims;C:\Users\pengx\AppData\Local\Microsoft\WindowsApps;C:\Users\pengx\AppData\Local\Yarn\bin;C:\Users\pengx\AppData\Local\hyper\app-2.0.0\resources\bin;C:\Users\pengx\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Kubernetes\Minikube;C:\Users\pengx\AppData\Local\Microsoft\WindowsApps;C:\Users\pengx\AppData\Roaming\npm;C:\Users\pengx\go\bin;C:\protoc\bin;;C:\Users\pengx\AppData\Local\Programs\Microsoft VS Code\bin
+  /var/folders/jn/9sw2xpw144l4r6kpcygt96jr6n77hb/T/yarn--1550449773356-0.09743672072743514:/Users/pengxiao/src/ratexp-mini/node_modules/.bin:/Users/pengxiao/.config/yarn/link/node_modules/.bin:/Users/pengxiao/src/ratexp-mini/node_modules/.bin:/Users/pengxiao/.config/yarn/link/node_modules/.bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/bin/node_modules/npm/bin/node-gyp-bin:/var/folders/jn/9sw2xpw144l4r6kpcygt96jr6n77hb/T/yarn--1550449773147-0.5572589599398057:/Users/pengxiao/src/ratexp-mini/node_modules/.bin:/Users/pengxiao/.config/yarn/link/node_modules/.bin:/Users/pengxiao/src/ratexp-mini/node_modules/.bin:/Users/pengxiao/.config/yarn/link/node_modules/.bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/bin/node_modules/npm/bin/node-gyp-bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/bin:/usr/local/opt/gettext/bin:/Users/pengxiao/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/pengxiao/.nvm/versions/node/v8.15.0/bin:/usr/local/opt/gettext/bin
 
 Yarn version: 
-  1.12.3
+  1.13.0
 
 Node version: 
-  10.10.0
+  8.15.0
 
 Platform: 
-  win32 x64
+  darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/dist%2fconstants/rate: Request "https://registry.yarnpkg.com/dist%2fconstants/rate" returned a 405
-      at Request.params.callback [as _callback] (C:\Users\pengx\scoop\apps\yarn\1.12.3\Yarn\lib\cli.js:65012:18)
-      at Request.self.callback (C:\Users\pengx\scoop\apps\yarn\1.12.3\Yarn\lib\cli.js:129018:22)
-      at Request.emit (events.js:182:13)
-      at Request.<anonymous> (C:\Users\pengx\scoop\apps\yarn\1.12.3\Yarn\lib\cli.js:129990:10)
-      at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (C:\Users\pengx\scoop\apps\yarn\1.12.3\Yarn\lib\cli.js:129912:12)
-      at Object.onceWrapper (events.js:273:13)
-      at IncomingMessage.emit (events.js:187:15)
-      at endReadableNT (_stream_readable.js:1092:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: https://registry.yarnpkg.com/src%2fcomponents/ratingsetcard: Request "https://registry.yarnpkg.com/src%2fcomponents/ratingsetcard" returned a 405
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:66264:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:129397:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130369:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130291:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)
 
 npm manifest: 
   {

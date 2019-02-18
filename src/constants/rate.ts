@@ -66,4 +66,6 @@ export interface RatingSet {
   ratings: { [key: string]: number };
   comments: string;
   timestamp: string; // iso date
+
+  _id?: string; // generated data
 }

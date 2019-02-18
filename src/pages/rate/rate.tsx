@@ -3,8 +3,9 @@ import { connect } from '@tarojs/redux';
 import Taro, { Component } from '@tarojs/taro';
 import { ComponentClass } from 'react';
 import { AtButton, AtCard, AtDivider, AtTextarea } from 'taro-ui';
-import { addRating } from '../../cloud';
+import { addRating, getRating, updateRating } from '../../cloud';
 import { dimensions, RatingSet } from '../../constants/rate';
+import { getDateString } from '../../util';
 import RateControl from './ratecontrol';
 
 type PageStateProps = { userInfo: Taro.getUserInfo.PromisedPropUserInfo };
@@ -17,6 +18,10 @@ type PageState = {
   ratings: { [key: string]: number };
   comments: string;
   submitting: boolean;
+
+  id?: string; // if there is ID, it is in update mode
+  timestamp: string;
+  loading?: boolean;
 };
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
@@ -32,13 +37,32 @@ class Rate extends Component<IProps, PageState> {
     ratings: {},
     comments: '',
     submitting: false,
+    timestamp: new Date().toISOString(),
   };
+
+  componentDidMount() {
+    if (this.$router.params.id) {
+      this.setState({ id: this.$router.params.id });
+      this.reviveFromId(this.$router.params.id);
+    }
+  }
+
+  async reviveFromId(id: string) {
+    this.setState({ loading: true });
+    const data = await getRating(id);
+    this.setState({
+      ratings: data.ratings,
+      comments: data.comments,
+      timestamp: data.timestamp,
+    });
+    this.setState({ loading: false });
+  }
 
   onRatingsChange = (ratingId: string, score: number) => {
     this.setState({ ratings: { ...this.state.ratings, [ratingId]: score } });
   };
 
-  onMessageChange = e => {
+  onMessageChange = (e: any) => {
     this.setState({ comments: e.detail.value });
   };
 
@@ -46,11 +70,18 @@ class Rate extends Component<IProps, PageState> {
     const payload: RatingSet = {
       comments: this.state.comments,
       ratings: this.state.ratings,
-      timestamp: new Date().toISOString(),
+      timestamp: this.state.timestamp,
     };
     this.setState({ submitting: true });
-    await addRating(payload);
+    if (this.state.id) {
+      const res = await updateRating(this.state.id, payload);
+      console.log(res);
+    } else {
+      const res = await addRating(payload);
+      console.log(res);
+    }
     this.setState({ submitting: false });
+    Taro.navigateTo({ url: '/pages/presenter/presenter' });
   };
 
   render() {
@@ -64,7 +95,11 @@ class Rate extends Component<IProps, PageState> {
 
     return (
       <View>
-        <AtCard isFull title="为本月的XP打分！" extra={`${score} / ${total}`}>
+        <AtCard
+          isFull
+          title={getDateString(this.state.timestamp)}
+          extra={`${score} / ${total}`}
+        >
           {dimensions.map(dimension => (
             <View key={dimension.id} style={{ margin: '12px 0' }}>
               <RateControl
