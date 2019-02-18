@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@antv/f2": "^3.3.5",
     "@tarojs/async-await": "1.2.12",
     "@tarojs/components": "1.2.12",
     "@tarojs/redux": "1.2.12",
@@ -29,7 +30,8 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "taro-ui": "^2.0.0"
+    "taro-ui": "^2.0.0",
+    "wolfy87-eventemitter": "^5.2.5"
   },
   "devDependencies": {
     "@tarojs/cli": "^1.2.13",

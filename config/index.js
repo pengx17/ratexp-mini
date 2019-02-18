@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'ratexp-mini',
   date: '2019-2-14',
@@ -31,6 +33,9 @@ const config = {
   copy: {
     patterns: [],
     options: {},
+  },
+  alias: {
+    'taro-f2': path.resolve(__dirname, '../src/taro-f2/index'),
   },
   weapp: {
     module: {

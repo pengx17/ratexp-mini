@@ -1,13 +1,15 @@
 import { View } from '@tarojs/components';
 import Taro, { Component } from '@tarojs/taro';
-import { AtAvatar, AtCard, AtActivityIndicator, AtTag } from 'taro-ui';
+import { AtActivityIndicator, AtAvatar, AtCard, AtTag } from 'taro-ui';
 import { getRatings } from '../../cloud';
+import RatingSetCard from '../../components/ratingsetcard';
 import { RatingSet } from '../../constants/rate';
 import { getDateString } from '../../util';
-import RatingSetCard from '../../components/ratingsetcard';
+import RatingChart from '../../components/ratingchart';
 
 interface State {
   ratingSetToday?: RatingSet;
+  ratingSets?: RatingSet[];
   loading: boolean;
 }
 
@@ -35,10 +37,11 @@ class RateView extends Component<
         getDateString(rs.timestamp) === getDateString(new Date().toISOString())
     );
 
-    if (rsToday) {
-      this.setState({ ratingSetToday: rsToday });
-    }
-    this.setState({ loading: false });
+    this.setState({
+      ratingSets: data,
+      loading: false,
+      ratingSetToday: rsToday,
+    });
   }
 
   render() {
@@ -81,6 +84,7 @@ class RateView extends Component<
             />
           </View>
         )}
+        <RatingChart ratingSets={this.state.ratingSets} />
       </View>
     );
   }
