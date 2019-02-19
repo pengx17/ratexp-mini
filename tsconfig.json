@@ -18,11 +18,7 @@
     "jsx": "preserve",
     "jsxFactory": "Taro.createElement",
     "allowJs": true,
-    "typeRoots": ["node_modules/@types"],
-    "paths": {
-      "taro-f2": ["src/taro-f2"],
-      "taro-f2/*": ["src/taro-f2/*"]
-    }
+    "typeRoots": ["node_modules/@types"]
   },
   "compileOnSave": false
 }

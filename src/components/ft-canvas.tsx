@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { Canvas } from '@tarojs/components';
 import PropTypes from 'prop-types';
 import Renderer from './lib/renderer';
-import './f2-canvas.css';
+import './ft-canvas.css';
 
 interface F2CanvasPropTypes {
   onCanvasInit: (canvas: any, width: number, height: number) => any;
@@ -18,7 +18,7 @@ function randomStr(long: number): string {
   return string;
 }
 
-export default class F2Canvas extends Component<F2CanvasPropTypes> {
+export default class FtCanvas extends Component<F2CanvasPropTypes> {
   static defaultProps = {
     onCanvasInit: () => {},
   };
@@ -120,7 +120,7 @@ export default class F2Canvas extends Component<F2CanvasPropTypes> {
   }
 }
 
-F2Canvas.fixF2 = function(F2: any): any {
+FtCanvas.fixF2 = function(F2: any): any {
   if (!F2 || F2.TaroFixed) {
     return F2;
   }

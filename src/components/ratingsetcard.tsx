@@ -30,7 +30,10 @@ class RatingSetCard extends Component<{
         >
           <View style={{ display: 'flex' }}>
             {dimensions.map(dim => (
-              <View key={dim.id} style={{ marginRight: '4px' }}>
+              <View
+                key={dim.id}
+                style={{ marginRight: '4px', justifyContent: 'space-between' }}
+              >
                 <AtTag size="small">
                   {dim.title}: {scoresMap[rs.ratings[dim.id]]}
                 </AtTag>

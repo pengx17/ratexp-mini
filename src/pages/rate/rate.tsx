@@ -33,17 +33,21 @@ type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
 class Rate extends Component<IProps, PageState> {
   config: Taro.Config = {};
 
-  state: PageState = {
-    ratings: {},
-    comments: '',
-    submitting: false,
-    timestamp: new Date().toISOString(),
-  };
+  constructor() {
+    super(...arguments);
+    this.state = {
+      ratings: {},
+      comments: '',
+      submitting: false,
+      timestamp: new Date().toISOString(),
+      loading: !!this.$router.params.id,
+      id: this.$router.params.id,
+    };
+  }
 
   componentDidMount() {
-    if (this.$router.params.id) {
-      this.setState({ id: this.$router.params.id });
-      this.reviveFromId(this.$router.params.id);
+    if (this.state.id) {
+      this.reviveFromId(this.state.id);
     }
   }
 

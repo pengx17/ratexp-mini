@@ -1,9 +1,9 @@
 import F2 from '@antv/f2';
 import { View } from '@tarojs/components';
 import Taro, { Component } from '@tarojs/taro';
-import F2Canvas from '../f2-canvas/f2-canvas';
-
 import { RatingSet } from '../constants/rate';
+import FtCanvas from './ft-canvas';
+import { getDayString } from '../util';
 
 class RatingChart extends Component<{
   ratingSets: RatingSet[];
@@ -12,91 +12,62 @@ class RatingChart extends Component<{
     ratingSets: [],
   };
 
-  drawRadar(canvas, width, height) {
+  renderChart(canvas, width, height) {
     // ⚠️ 别忘了这行
     // 为了兼容微信与支付宝的小程序，你需要通过这个命令为F2打补丁
-    F2Canvas.fixF2(F2);
+    FtCanvas.fixF2(F2);
 
-    const data = [
-      { name: '超大盘能力', value: 6.5 },
-      { name: '抗跌能力', value: 9.5 },
-      { name: '稳定能力', value: 9 },
-      { name: '绝对收益能力', value: 6 },
-      { name: '选证择时能力', value: 6 },
-      { name: '风险回报能力', value: 8 },
-    ];
     const chart = new F2.Chart({
       el: canvas,
       width,
       height,
     });
-    chart.source(data, {
-      value: {
-        min: 0,
+
+    const sourceData = [...this.props.ratingSets]
+      .sort((a, b) => a.timestamp.localeCompare(b.timestamp))
+      .map(rs => ({
+        timestamp: rs.timestamp,
+        score: Object.values(rs.ratings).reduce((acc, v) => acc + v, 0),
+      }));
+
+    chart.source(sourceData, {
+      timestamp: { range: [0, 1], type: 'timeCat' },
+      score: {
+        tickCount: 3,
         max: 10,
+        min: 0,
       },
     });
-    chart.coord('polar');
-    chart.axis('value', {
-      grid: {
-        lineDash: null,
-      },
-      label: null,
-      line: null,
+    chart.axis('timestamp', {
+      label: text => ({ text: getDayString(text) }),
     });
-    chart.axis('name', {
-      grid: {
-        lineDash: null,
+
+    chart.tooltip({
+      showTitle: true,
+      onShow: function onShow(ev) {
+        const items = ev.items;
+        items[0].name = '分数';
       },
     });
-    chart
-      .area()
-      .position('name*value')
-      .color('#FE5C5B')
-      .style({
-        fillOpacity: 0.2,
-      })
-      .animate({
-        appear: {
-          animation: 'groupWaveIn',
-        },
-      });
+
     chart
       .line()
-      .position('name*value')
-      .color('#FE5C5B')
-      .size(1)
-      .animate({
-        appear: {
-          animation: 'groupWaveIn',
-        },
-      });
+      .position('timestamp*score')
+      .shape('smooth')
+      .color('l(0) 0:#F2C587 0.5:#ED7973 1:#8659AF');
     chart
-      .point()
-      .position('name*value')
-      .color('#FE5C5B')
-      .animate({
-        appear: {
-          delay: 300,
-        },
-      });
-    chart.guide().text({
-      position: ['50%', '50%'],
-      content: '73',
-      style: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        fill: '#FE5C5B',
-      },
-    });
+      .area()
+      .position('timestamp*score')
+      .shape('smooth')
+      .color('l(0) 0:#F2C587 0.5:#ED7973 1:#8659AF');
     chart.render();
   }
 
   render() {
     return (
       <View className="index">
-        <View style="width:300px;height:500px">
-          <F2Canvas onCanvasInit={this.drawRadar.bind(this)} />
+        <View style="width:100%;height:120px">
+          <FtCanvas onCanvasInit={this.renderChart.bind(this)} />
         </View>
       </View>
     );
