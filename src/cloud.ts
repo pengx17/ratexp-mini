@@ -15,9 +15,27 @@ export function getRatingsCollection() {
   return getDB().collection('ratings');
 }
 
+const MAX_LIMIT = 20;
+
 export async function getRatings(): Promise<RatingSet[]> {
-  const { data } = await getRatingsCollection().get();
-  return getUniqueRatingSets(data);
+  const { total } = await getRatingsCollection().count();
+  const batchTimes = Math.ceil(total / MAX_LIMIT);
+
+  // 承载所有读操作的 promise 的数组
+  const tasks: Promise<{ data: RatingSet[] }>[] = [];
+  for (let i = 0; i < batchTimes; i++) {
+    const promise = getRatingsCollection()
+      .skip(i * MAX_LIMIT)
+      .limit(MAX_LIMIT)
+      .get();
+    tasks.push(promise);
+  }
+
+  const ratingSets = (await Promise.all(tasks)).reduce((acc, cur) => {
+    return [...acc, ...cur.data];
+  }, []);
+
+  return getUniqueRatingSets(ratingSets);
 }
 
 export function addRating(rating: RatingSet) {

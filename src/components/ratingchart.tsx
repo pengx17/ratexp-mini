@@ -12,7 +12,7 @@ class RatingChart extends Component<{
     ratingSets: [],
   };
 
-  renderChart(canvas, width, height) {
+  doRenderChart(canvas, width, height) {
     // ⚠️ 别忘了这行
     // 为了兼容微信与支付宝的小程序，你需要通过这个命令为F2打补丁
     FtCanvas.fixF2(F2);
@@ -67,7 +67,7 @@ class RatingChart extends Component<{
     return (
       <View className="index">
         <View style="width:100%;height:120px">
-          <FtCanvas onCanvasInit={this.renderChart.bind(this)} />
+          <FtCanvas onCanvasInit={this.doRenderChart.bind(this)} />
         </View>
       </View>
     );

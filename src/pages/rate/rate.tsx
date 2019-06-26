@@ -107,7 +107,7 @@ class Rate extends Component<IProps, PageState> {
           {dimensions.map(dimension => (
             <View key={dimension.id} style={{ margin: '12px 0' }}>
               <RateControl
-                dimention={dimension}
+                dimension={dimension}
                 value={this.state.ratings[dimension.id]}
                 onChange={value => this.onRatingsChange(dimension.id, value)}
               />

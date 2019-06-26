@@ -5,12 +5,12 @@ import { Dimension, scores } from '../../constants/rate';
 import styles from './ratecontrol.module.css';
 
 class RateControl extends Component<{
-  dimention: Dimension;
+  dimension: Dimension;
   value?: number;
   onChange?: (value: number) => void;
 }> {
   static defaultProps = {
-    dimention: {},
+    dimension: {},
   };
 
   config: Taro.Config = {};
@@ -23,10 +23,10 @@ class RateControl extends Component<{
       <View>
         <AtCard
           title={
-            this.props.dimention.title +
+            this.props.dimension.title +
             (this.props.value !== null ? ' ✅' : '')
           }
-          note={this.props.dimention.description}
+          note={this.props.dimension.description}
         >
           <View style={{ display: 'flex', justifyContent: 'center' }}>
             {scores.map(rating => {

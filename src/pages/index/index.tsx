@@ -1,9 +1,8 @@
 import { View } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import Taro, { Component } from '@tarojs/taro';
-import { ComponentClass } from 'react';
 import { AtButton, AtMessage } from 'taro-ui';
-import { initUserInfo } from '../../actions/auth';
+import initUserInfo from '../../actions/auth';
 import { allowedUsers } from '../../constants/auth';
 import { State } from '../../reducers/auth';
 import styles from './index.module.css';
@@ -11,7 +10,7 @@ import styles from './index.module.css';
 type PageStateProps = State;
 
 type PageDispatchProps = {
-  initUserInfo: (userInfo: any) => any;
+  onInitUserInfo: (userInfo: any) => any;
 };
 
 type PageOwnProps = {};
@@ -25,7 +24,7 @@ type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
 @connect(
   ({ auth }) => auth,
   dispatch => ({
-    initUserInfo(userInfo: any) {
+    onInitUserInfo(userInfo: any) {
       dispatch(initUserInfo(userInfo));
     },
   })
@@ -110,7 +109,7 @@ class Index extends Component<IProps, PageState> {
       return;
     }
 
-    this.props.initUserInfo(userInfo);
+    this.props.onInitUserInfo(userInfo);
 
     if (!allowedUsers.includes(userInfo.nickName)) {
       Taro.atMessage({
@@ -133,4 +132,4 @@ class Index extends Component<IProps, PageState> {
   };
 }
 
-export default Index as ComponentClass<PageOwnProps, PageState>;
+export default Index;
