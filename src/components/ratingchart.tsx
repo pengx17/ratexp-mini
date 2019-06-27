@@ -2,7 +2,7 @@ import F2 from '@antv/f2';
 import { View } from '@tarojs/components';
 import Taro, { Component } from '@tarojs/taro';
 import { RatingSet } from '../constants/rate';
-import FtCanvas from './ft-canvas';
+import FtCanvas, { fixF2 } from './ft-canvas';
 import { getDayString } from '../util';
 
 class RatingChart extends Component<{
@@ -15,7 +15,7 @@ class RatingChart extends Component<{
   doRenderChart(canvas, width, height) {
     // ⚠️ 别忘了这行
     // 为了兼容微信与支付宝的小程序，你需要通过这个命令为F2打补丁
-    FtCanvas.fixF2(F2);
+    fixF2(F2);
 
     const chart = new F2.Chart({
       el: canvas,
@@ -55,18 +55,20 @@ class RatingChart extends Component<{
       .position('timestamp*score')
       .shape('smooth')
       .color('l(0) 0:#F2C587 0.5:#ED7973 1:#8659AF');
+
     chart
       .area()
       .position('timestamp*score')
       .shape('smooth')
       .color('l(0) 0:#F2C587 0.5:#ED7973 1:#8659AF');
+
     chart.render();
   }
 
   render() {
     return (
       <View className="index">
-        <View style="width:100%;height:120px">
+        <View style={{ width: '100%', height: '120px', position: 'relative' }}>
           <FtCanvas onCanvasInit={this.doRenderChart.bind(this)} />
         </View>
       </View>
